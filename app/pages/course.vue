@@ -1,13 +1,16 @@
-<script setup>
+<script setup lang="ts">
 const { chapters } = useCourse();
-
-// const resetError = (error) => {
-//   error.value = null;
-// };
 
 definePageMeta({
   // layout: false,
 });
+
+const handleError = async (clearError: () => void) => {
+  await navigateTo(
+    "/course/chapter/1-chapter-1/lesson/1-introduction-to-typescript-with-vue-js-3/",
+  );
+  clearError();
+};
 </script>
 
 <template>
@@ -58,7 +61,7 @@ definePageMeta({
           <p>
             <button
               class="bg-gray-500 px-4 py-2 font-bold text-white hover:cursor-pointer"
-              @click="clearError"
+              @click="handleError(clearError)"
             >
               Reset
             </button>
