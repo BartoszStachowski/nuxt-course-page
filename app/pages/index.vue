@@ -1,6 +1,9 @@
-<script setup></script>
+<script setup lang="ts">
+const firstLesson = useFirstLesson();
+console.log(firstLesson);
+</script>
 <template>
-  <NuxtLink class="text-md font-normal text-gray-500" to="/course">
+  <NuxtLink class="font-medium underline" :href="firstLesson?.path">
     Course
   </NuxtLink>
 </template>
