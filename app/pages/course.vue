@@ -23,13 +23,13 @@ const handleError = async (clearError: () => void) => {
       </h1>
     </div>
 
-    <div class="flex flex-grow flex-row justify-center">
+    <div class="flex flex-row flex-grow justify-center">
       <div
-        class="mr-4 flex min-w-[20ch] max-w-[30ch] flex-col rounded-md bg-white p-8"
+        class="flex flex-col bg-white mr-4 p-8 rounded-md min-w-[20ch] max-w-[30ch]"
       >
         <h3>Chapters</h3>
         <div
-          class="mb-4 flex flex-col space-y-1"
+          class="flex flex-col space-y-1 mb-4"
           v-for="chapter in chapters"
           :key="chapter.slug"
         >
@@ -37,7 +37,7 @@ const handleError = async (clearError: () => void) => {
           <NuxtLink
             v-for="(lesson, index) in chapter.lessons"
             :key="lesson.slug"
-            class="-mx-4 flex flex-row space-x-1 px-4 py-1 font-normal no-underline"
+            class="flex flex-row space-x-1 -mx-4 px-4 py-1 font-normal no-underline"
             :to="lesson.path"
             :class="{
               'font-bold text-blue-500': lesson.path === $route.fullPath,
@@ -50,7 +50,7 @@ const handleError = async (clearError: () => void) => {
         </div>
       </div>
 
-      <div class="w-[65ch] rounded-md bg-white p-12">
+      <div class="bg-white p-12 rounded-md w-[65ch]">
         <NuxtErrorBoundary>
           <NuxtPage />
           <template #error="{ error, clearError }">
