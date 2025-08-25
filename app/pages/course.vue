@@ -7,7 +7,7 @@ definePageMeta({
 
 const handleError = async (clearError: () => void) => {
   await navigateTo(
-    "/course/chapter/1-chapter-1/lesson/1-introduction-to-typescript-with-vue-js-3/",
+    '/course/chapter/1-chapter-1/lesson/1-introduction-to-typescript-with-vue-js-3/',
   );
   clearError();
 };
@@ -15,12 +15,13 @@ const handleError = async (clearError: () => void) => {
 
 <template>
   <div>
-    <div class="mb-12">
-      <h1>
+    <div class="flex justify-between items-center mb-4 w-full">
+      <h1 class="text-3xl">
         <span class="font-medium">
           <span class="font-bold">{{ title }}</span>
         </span>
       </h1>
+      <UserCard />
     </div>
 
     <div class="flex flex-row flex-grow justify-center">
