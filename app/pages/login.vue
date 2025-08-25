@@ -1,12 +1,25 @@
 <script lang="ts" setup>
 const { title } = useCourse();
+const { query } = useRoute();
 const supabase = useSupabaseClient();
+const user = useSupabaseUser();
+
+watchEffect(async () => {
+  if (user.value) {
+    await navigateTo(query.redirectTo as string, {
+      replace: true,
+    });
+  }
+});
 
 const login = async () => {
+  const queryParams =
+    query.redirectTo !== undefined ? `?redirectTo=${query.redirectTo}` : '';
+  const redirectTo = `${window.location.origin}/confirm${queryParams}`;
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'github',
     options: {
-      redirectTo: window.location.origin, // lub `${window.location.origin}/auth/callback`
+      redirectTo,
     },
   });
 
@@ -23,6 +36,9 @@ const login = async () => {
     >
       Log in with Github
     </button>
+    <div>
+      <NuxtLink class="font-medium underline" href="/"> Course </NuxtLink>
+    </div>
   </div>
 </template>
 
