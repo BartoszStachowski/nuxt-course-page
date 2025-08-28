@@ -5,35 +5,31 @@ const route = useRoute();
 definePageMeta({
   middleware: [
     function ({ params }, from) {
-      const course = useCourse();
-
-      const chapter = course.chapters.find(
-        (chapter) => chapter.slug === params.chapterSlug,
-      );
-
-      if (!chapter) {
-        return abortNavigation(
-          createError({
-            statusCode: 404,
-            message: "Chapter not found",
-          }),
-        );
-      }
-
-      const lesson = chapter.lessons.find(
-        (lesson) => lesson.slug === params.lessonSlug,
-      );
-
-      if (!lesson) {
-        return abortNavigation(
-          createError({
-            statusCode: 404,
-            message: "Lesson not found",
-          }),
-        );
-      }
+      // const course = useCourse();
+      // const chapter = course.chapters.find(
+      //   (chapter) => chapter.slug === params.chapterSlug,
+      // );
+      // if (!chapter) {
+      //   return abortNavigation(
+      //     createError({
+      //       statusCode: 404,
+      //       message: 'Chapter not found',
+      //     }),
+      //   );
+      // }
+      // const lesson = chapter.lessons.find(
+      //   (lesson) => lesson.slug === params.lessonSlug,
+      // );
+      // if (!lesson) {
+      //   return abortNavigation(
+      //     createError({
+      //       statusCode: 404,
+      //       message: 'Lesson not found',
+      //     }),
+      //   );
+      // }
     },
-    "auth",
+    'auth',
   ],
 });
 
@@ -56,7 +52,7 @@ useHead({
   title,
 });
 
-const progress = useLocalStorage("progress", []);
+const progress = useLocalStorage('progress', []);
 
 const isLessonComplete = computed({
   get() {
@@ -83,21 +79,21 @@ const isLessonComplete = computed({
 
 <template>
   <div v-if="chapter && lesson">
-    <p class="mt-0 mb-1 font-bold text-slate-400 uppercase">
+    <p class="mb-1 mt-0 font-bold uppercase text-slate-400">
       Lesson {{ chapter.number }} - {{ lesson.number }}
     </p>
     <h2 class="my-0">{{ lesson.title }}</h2>
-    <div class="flex space-x-4 mt-2 mb-8">
+    <div class="mb-8 mt-2 flex space-x-4">
       <NuxtLink
         v-if="lesson.sourceUrl"
-        class="font-normal text-gray-500 text-md"
+        class="text-md font-normal text-gray-500"
         :to="lesson.sourceUrl"
       >
         Download Source Code
       </NuxtLink>
       <NuxtLink
         v-if="lesson.downloadUrl"
-        class="font-normal text-gray-500 text-md"
+        class="text-md font-normal text-gray-500"
         :to="lesson.downloadUrl"
       >
         Download Video

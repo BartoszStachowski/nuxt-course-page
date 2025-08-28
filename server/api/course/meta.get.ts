@@ -1,0 +1,69 @@
+import course from '@@/server/courseData';
+import type { Course, Chapter } from '@@/types/course';
+
+course as Course;
+
+type OutlineBase = {
+  title: string;
+  slug: string;
+  number: number;
+};
+
+type OutlineLesson = OutlineBase & {
+  path: string;
+};
+
+type OutlineChapter = OutlineBase & {
+  lessons: OutlineLesson[];
+};
+
+type CourseMeta = {
+  title: string;
+  chapters: OutlineChapter[];
+};
+
+export default defineEventHandler((event): CourseMeta => {
+  // const outline: OutlineChapter[] = course.chapters.reduce(
+  //   (prev: OutlineChapter[], next: Chapter) => {
+  //     const lessons: OutlineLesson[] = next.lessons.map((lesson) => ({
+  //       title: lesson.title,
+  //       slug: lesson.slug,
+  //       number: lesson.number,
+  //       path: `/course/chapter/${next.slug}/lesson/${lesson.slug}`,
+  //     }));
+  //     const chapter: OutlineChapter = {
+  //       title: next.title,
+  //       slug: next.slug,
+  //       number: next.number,
+  //       lessons,
+  //     };
+  //     return [...prev, chapter];
+  //   },
+  //   [],
+  // );
+  // return {
+  //   title: course.title,
+  //   chapters: outline,
+  // };
+
+  const chapters: OutlineChapter[] = course.chapters.map((chapter) => {
+    const lessons: OutlineLesson[] = chapter.lessons.map((lesson) => ({
+      title: lesson.title,
+      slug: lesson.slug,
+      number: lesson.number,
+      path: `/course/chapter/${chapter.slug}/lesson/${lesson.slug}`,
+    }));
+
+    return {
+      title: chapter.title,
+      slug: chapter.slug,
+      number: chapter.number,
+      lessons,
+    };
+  });
+
+  return {
+    title: course.title,
+    chapters,
+  };
+});
