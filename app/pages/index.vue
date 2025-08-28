@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const firstLesson = useFirstLesson();
+const firstLesson = await useFirstLesson();
 </script>
 <template>
   <NuxtLink class="font-medium underline" :href="firstLesson?.path">
